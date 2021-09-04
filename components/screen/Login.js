@@ -3,15 +3,25 @@ import { ScrollView, StyleSheet, Text, View, TextInput } from 'react-native';
 import LoginSignUpBTN from '../basiccomponents/LoginSignUpBTN';
 import BasicButton from '../basiccomponents/BasicButton';
 import { nominalTypeHack } from 'prop-types';
-export default function Login(){
+import SnackBar from '../basiccomponents/SnackBar';
+export default function Login({navigation}){
     const[e_mail,setE_mail]=useState("")
     const[password,setPassword]=useState("")
+    const[isVisible,setIsvisible]=useState(false)
+    const[snacktype,setSnacktype]=useState("")
+    const[snacktext,setSnacktext]=useState("")
     function LoginButtonClick(){
         console.log("Login Clicked")
+        setSnacktype("success")
+        setSnacktext("You are loged in successfully")
+        setIsvisible(true)
     };
     function SignUpBtnClk(){
         console.log("Sign-Up Clicked")
     };
+    function hideSnackBar(){
+        setIsvisible(false)
+    }
     return(
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Login</Text>
@@ -26,11 +36,21 @@ export default function Login(){
                 <TextInput style={styles.inputfield} placeholder="Enter Your Password" secureTextEntry></TextInput>                
             </View>
             <BasicButton text="Login" onPress={LoginButtonClick}/>
+            {
+                    isVisible?
+                    <SnackBar
+                        isVisible={isVisible}
+                        text={snacktext}
+                        type={snacktype}
+                        onClose={hideSnackBar}
+                    />
+                    :null
+                }
             <LoginSignUpBTN 
                 customStyle={styles.signup} 
                 text="Don't have an account"
                 btnText="Sign-Up"
-                onPress={SignUpBtnClk}
+                onPress={()=>navigation.navigate("Signup")}
             />
         </ScrollView>
     );

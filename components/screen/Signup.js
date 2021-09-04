@@ -144,7 +144,7 @@ export default class Signup extends ValidationComponent{
                     customStyle={styles.signup}
                     text='Already Have An Account'
                     btnText='Sign In'
-                    onPress={this.handleSigninBTNClk}
+                    onPress={()=>this.props.navigation.navigate("login")}
                 />
             </ScrollView>
             </>
