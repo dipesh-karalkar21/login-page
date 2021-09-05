@@ -4,6 +4,7 @@ import LoginSignUpBTN from '../basiccomponents/LoginSignUpBTN';
 import BasicButton from '../basiccomponents/BasicButton';
 import { nominalTypeHack } from 'prop-types';
 import SnackBar from '../basiccomponents/SnackBar';
+import firebase from '../Firebase/FirebaseConfig';
 export default function Login({navigation}){
     const[e_mail,setE_mail]=useState("")
     const[password,setPassword]=useState("")
@@ -12,9 +13,18 @@ export default function Login({navigation}){
     const[snacktext,setSnacktext]=useState("")
     function LoginButtonClick(){
         console.log("Login Clicked")
-        setSnacktype("success")
-        setSnacktext("You are loged in successfully")
-        setIsvisible(true)
+        firebase.auth().signInWithEmailAndPassword(e_mail,password)
+        .then(()=>{
+            console.log("messageSignIn")
+            setSnacktype("success")
+            setSnacktext("You are loged in successfully")
+            setIsvisible(true)
+        })
+        .catch((error)=>{
+            setSnacktype("error")
+            setSnacktext(error.message)
+            setIsvisible(true)
+        })
     };
     function SignUpBtnClk(){
         console.log("Sign-Up Clicked")

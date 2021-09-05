@@ -6,7 +6,6 @@ import { render } from 'react-dom';
 import Landing from '../screen/Landing'
 import Login from '../screen/Login';
 import Signup from '../screen/Signup'
-import { Header } from 'react-native/Libraries/NewAppScreen';
 export default function TabNav(){
     const Tab=createBottomTabNavigator();
     function LogoTitle() {
@@ -20,6 +19,30 @@ export default function TabNav(){
     return(
         <NavigationContainer>
             <Tab.Navigator
+            screenOptions={{
+              tabBarShowLabel:false,
+           
+             tabBarInactiveBackgroundColor:"#561234",
+             tabBarInactiveTintColor:"#ffffff",
+             tabBarLabelStyle:{
+                   color:"#e53935",
+                   
+             },
+           tabBarStyle:{
+               position:'absolute',
+               bottom:20,
+               right:20,
+               left:20,
+               backgroundColor:"#000000",
+              
+               
+           },
+          
+            style:{
+               borderRadius:20,
+            }
+          }}
+       
             >
                 <Tab.Screen name="login" component={Login}
   

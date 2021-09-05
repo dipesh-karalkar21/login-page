@@ -7,6 +7,7 @@ import ValidationComponent from 'react-native-form-validator';
 import {Picker} from '@react-native-picker/picker';
 import ORDivider from '../basiccomponents/ORdivider';
 import SnackBar from '../basiccomponents/SnackBar';
+import firebase from '../Firebase/FirebaseConfig';
 export default class Signup extends ValidationComponent{
     constructor(props){
         super(props)
@@ -41,12 +42,22 @@ export default class Signup extends ValidationComponent{
             });
           }
           else{
-              this.playAudio();
+              firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
+              .then(()=>{
+                this.playAudio();
             this.setState({
                 'snacktype':'success',
-                'snacktext':'Login Successful',
-                'snackvisible':true,
-            });
+                'snacktext':'Account created',
+                'snackvisible':true,});
+              })
+              .catch((error)=>{
+                this.playAudio();
+                this.setState({
+                    'snacktype':'error',
+                    'snacktext':error,
+                    'snackvisible':true,
+                });
+              })
           }
     }
     hideSnackBar=()=>{
